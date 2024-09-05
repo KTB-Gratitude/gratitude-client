@@ -1,6 +1,48 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLoginIdChange = (e) => {
+    setLoginId(e.target.value);
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const url = 'https://c67d-211-244-225-211.ngrok-free.app/api/v1/users/login'
+    const formData = {
+         loginId,   // email
+         password   // text
+    };
+    /* 
+    통신 코드
+    */
+    // try {
+    //     const res = await fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type' : 'application/json'
+    //         },
+    //         body: JSON.stringify(formData)
+    //     });
+
+    //     if (!res.ok) {
+    //         alert("통신 ok가 안났단다");
+    //     }
+    //     const result = await res.json();
+    //     console.log('Response:', result, "통신 성공");
+    // } catch (error) {
+    //     console.log("catch에 걸렸단다");
+    // }
+    console.log(formData);
+  }
 
   return (
     <div className="container">
@@ -12,7 +54,7 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email
@@ -24,6 +66,7 @@ export default function Login() {
                   type="email"
                   required
                   autoComplete="email"
+                  onChange={handleLoginIdChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -42,6 +85,7 @@ export default function Login() {
                   type="password"
                   required
                   autoComplete="current-password"
+                  onChange={handlePasswordChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -59,7 +103,7 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             회원이 아니신가요?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               회원가입 하러가기
             </a>
           </p>
