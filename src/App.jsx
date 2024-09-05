@@ -8,14 +8,13 @@ import { RouterProvider } from 'react-router-dom';
 // import themes from 'themes';
 
 // project imports
-// import NavigationScroll from 'layout/NavigationScroll';
-import Login from '/src/views/auth/Login'
+import router from './routes';
 
 // ==============================|| APP ||============================== //
 
 const App = () => {
   return (
-    <Login />
+    <RouterProvider router={router} />
   )
 };
 
