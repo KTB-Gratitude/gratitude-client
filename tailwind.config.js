@@ -1,6 +1,7 @@
-// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    './index.html',
     './src/**/*.{js,jsx,ts,tsx}', // Tailwind가 적용될 파일의 경로 설정
   ],
   theme: {

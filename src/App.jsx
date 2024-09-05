@@ -15,10 +15,8 @@ import Login from '/src/views/auth/Login'
 
 const App = () => {
   return (
-    <div>
-      <Login />
-    </div>
-  );
+    <Login />
+  )
 };
 
 export default App;
