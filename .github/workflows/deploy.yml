@@ -28,7 +28,34 @@ jobs:
       - name: Build Vite project
         run: npm run build
 
-      # 5. SSH로 서버에 접속하여 빌드 파일 배포
+      # 5. SSH 키 확인 (디버그용)
+      - name: Check SSH_PRIVATE_KEY Secret
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "SSH_PRIVATE_KEY is not set."
+            exit 1
+          else
+            echo "SSH_PRIVATE_KEY is set."
+          fi
+          
+      # 6. 서버 IP와 사용자 확인 (디버그용)
+      - name: Check Server IP and User
+        run: |
+          if [ -z "${{ secrets.SERVER_IP }}" ]; then
+            echo "SERVER_IP is not set."
+            exit 1
+          else
+            echo "SERVER_IP is set."
+          fi
+          
+          if [ -z "${{ secrets.SERVER_USER }}" ]; then
+            echo "SERVER_USER is not set."
+            exit 1
+          else
+            echo "SERVER_USER is set."
+          fi
+
+      # 7. SSH로 서버에 접속하여 빌드 파일 배포
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -36,3 +63,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}  # GitHub Secrets에 저장된 사용자 (예: ubuntu)
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # GitHub Secrets에 저장된 SSH 비밀 키
           port: 22
+          script: |
+            # 기존 dist 폴더 삭제
+            rm -rf /home/ubuntu/gratitude-client/dist
+            # 새로운 dist 폴더 생성
+            mkdir -p /home/ubuntu/gratitude-client/dist
+            # 빌드 파일 업로드
+            rsync -avz --delete ./dist/ /home/ubuntu/gratitude-client/dist/
+            # Nginx 재시작
+            sudo systemctl restart nginx
