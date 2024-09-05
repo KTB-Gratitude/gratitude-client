@@ -24,23 +24,23 @@ export default function Login() {
     /* 
     통신 코드
     */
-    // try {
-    //     const res = await fetch(url, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type' : 'application/json'
-    //         },
-    //         body: JSON.stringify(formData)
-    //     });
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
 
-    //     if (!res.ok) {
-    //         alert("통신 ok가 안났단다");
-    //     }
-    //     const result = await res.json();
-    //     console.log('Response:', result, "통신 성공");
-    // } catch (error) {
-    //     console.log("catch에 걸렸단다");
-    // }
+        if (!res.ok) {
+            alert("통신 ok가 안났단다");
+        }
+        const result = await res.json();
+        console.log('Response:', result, "통신 성공");
+    } catch (error) {
+        console.log("catch에 걸렸단다");
+    }
     console.log(formData);
   }
 
