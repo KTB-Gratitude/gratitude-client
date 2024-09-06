@@ -13,7 +13,7 @@ function processDataFromBackend(diaryData) {
 
   // rType, jType, mType, dType의 공통 처리 로직
   const parseTypeData = (typeData) => {
-      const [type, value, description] = typeData.split(", ");
+      const [type, value, description] = typeData.split("| ");
       const colorR = value > 50 ? [colors[0], "#D9E0E8"] : ["#D9E0E8", colors[0]];
       const colorJ = value > 50 ? [colors[1], "#D9E0E8"] : ["#D9E0E8", colors[1]];
       const colorM = value > 50 ? [colors[2], "#D9E0E8"] : ["#D9E0E8", colors[2]];
@@ -112,9 +112,11 @@ function MyLibrary () {
       const endpoint = `/api/v1/users/logout`;
       try {
         const response = await fetchGet(endpoint); // id를 사용하여 요청
-        setDiaryData(response);
-        console.log("res: ", response);
-        setLoading(false);
+
+        if (!response.ok) {
+          alert("로그아웃 실패");
+        }
+        localStorage.clear();
       } catch (error) {
         console.error('Failed to fetch diary data:', error);
       }
@@ -128,7 +130,7 @@ function MyLibrary () {
             <div className="flex items-center">
               <button className="mr-2">&lt;&lt;</button> {/* 이전 달 버튼 */}
               <button className="ml-2 mr-6">&gt;&gt;</button> {/* 다음 달 버튼 */}
-              <button className="ml-2">로그아웃</button> {/* 다음 달 버튼 */}
+              <button className="ml-2" onClick={clickLogout}>로그아웃</button>
             </div>
           </div>
       
