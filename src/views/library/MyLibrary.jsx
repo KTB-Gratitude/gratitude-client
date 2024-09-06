@@ -7,6 +7,7 @@ import DairyCard from "./DairyCard";
 import dairyList from "./mockdata";
 import personalDairy from "./mockdataP";
 import HappyPer from "./dashboard/HappyPer";
+import RJMD from "./dashboard/RJMD";
 
 function MyLibrary () {
     const [data, setData] = useState(dairyList);
@@ -37,6 +38,10 @@ function MyLibrary () {
         }
     }
 
+    const clickCreateDiary = (e) => {
+      /* 일기 작성 페이지로 이동 */
+    }
+
     // console.log(data.content[0]);
 
     /* useEffect(() => {
@@ -63,22 +68,16 @@ function MyLibrary () {
             {/* 대쉬보드 */}
             {isLoading ? (
                 <div className="bg-white shadow-lg rounded-lg p-8">
-                    <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
-                    <p className="text-center">- 헤르만 헤세</p>
+                  <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
+                  <p className="text-center">- 헤르만 헤세</p>
                 </div>
             ) : (
-                <div className="bg-white shadow-lg rounded-lg p-8">
-                    {/* 행복지수 자리 */}
-                    <HappyPer />
-                    <hr className="border-gray-300 my-6" />
-
-                    
-                </div>
-
-            )
-                
-                
-            }
+              <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-8">
+                <HappyPer data={data.content[0].happiness} />
+                <hr className="my-6 border-t-2 border-purple-500" />
+                <RJMD diaryId={data.content[0].id}/>
+              </div>
+            )}
 
       
             {/* 오른쪽 날씨 정보 및 일기 카드 */}
@@ -96,6 +95,15 @@ function MyLibrary () {
                     <DairyCard data={item}/>
                   </li>
                 ))}
+                <li>
+                  <div className="relative flex flex-col h-60 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md">
+                      <div className="flex justify-center items-center h-full">
+                          <p className="block font-sans text-base text-sm antialiased font-normal leading-relaxed text-inherit">
+                              일기 작성
+                          </p>
+                      </div>
+                  </div>                                    
+                </li>
               </ul>
             </div>
           </div>
