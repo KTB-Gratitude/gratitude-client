@@ -15,22 +15,26 @@ function RJMD({ title, data, type, description }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
-        if (svgRef.current) {
+        if (svgRef.current && isLoading) {
             drawBarGraph(svgRef.current, data);
+            setLoading(false);
         }
     }, [data]);
 
     function drawBarGraph(svgElement, data) {
-        
+
+        const parentWidth = svgElement.parentElement.clientWidth-40;
         d3.select(svgElement).selectAll("*").remove();
         const svg = d3.select(svgElement)
-            .attr("width", svgRef.current.clientWidth)
+            .attr("width", parentWidth)
             .attr("height", 13);
 
-        const width = +svg.attr("width");
+        const width = parentWidth;
         const height = +svg.attr("height");
+        const totalValue = d3.sum(data.map(d => d.value));
+
         const xScale = d3.scaleLinear()
-            .domain([0, d3.sum(data.map(d => d.value))])
+            .domain([0, totalValue])
             .range([0, width]);
 
         const cornerRadius = 6;

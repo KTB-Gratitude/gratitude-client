@@ -135,10 +135,10 @@ function MyLibrary () {
                   <p className="text-center">- 헤르만 헤세</p>
                 </div>
             ) : (
-              <div className="flex flex-col items-center justify-center bg-white shadow-lg w-full rounded-lg p-8">
-                
-                <HappyPer data={data.content[selectedIdx].happiness} />
-                <hr className="my-6 border-t-2 border-purple-500" />
+              <div className="flex flex-col items-center justify-center bg-white shadow-lg w-96 rounded-lg p-8 gap-y-4">
+                <div className="mb-10">
+                  <HappyPer data={data.content[selectedIdx].happiness} />
+                </div>
                 {rjmd ? (
                   <>
                     <RJMD title={rjmd[0].title} data={rjmd[0].data} type={rjmd[0].type} description={rjmd[0].description}/>
@@ -162,11 +162,11 @@ function MyLibrary () {
               </div>
       
               {/* 일기 카드 목록 */}
-              <ul className="grid grid-cols-4 gap-4 px-6">
+              <ul className="grid grid-cols-4 grid-rows-2 gap-4 px-6">
               {data && data.content ? (
                 data.content.map((item, index) => (
-                  <li key={index} className="list-none" onClick={() => handlerClickDairy(index)}>
-                    <DairyCard data={item} />
+                  <li key={index} className="list-none">
+                    <DairyCard data={item} onClick={() => handlerClickDairy(index)}/>
                   </li>
                 ))
               ) : (

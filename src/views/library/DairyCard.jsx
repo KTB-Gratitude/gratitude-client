@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Weather from "./Weather";
 
-function DairyCard({ data }) {
+function DairyCard({ data, onClick }) {
     // 날씨, 날짜, 타이틀,
     let title = data.title;
     let weather = data.weather;
@@ -10,7 +10,7 @@ function DairyCard({ data }) {
 
     return (
         <div
-            className="relative flex flex-col h-60 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            className="relative flex flex-col h-60 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md" onClick={onClick}>
             <div className="relative m-0 overflow-hidden text-gray-700 bg-transparent rounded-none shadow-none bg-clip-border">
                 <div className="h-28 bg-blue-500">
                 </div>

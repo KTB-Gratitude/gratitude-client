@@ -43,20 +43,20 @@ function HappyPer({data}) {
                 .attr("text-anchor", "middle")
                 .attr("dy", ".35em")
                 .text(`${data}%`)
-                .style("font-size", "15px")
+                .style("font-size", "30px")
                 .style("fill", "#333");
             g.append("text")
                 .attr("text-anchor", "middle")
                 .attr("dy", "6em")
                 .text(`행복지수`)
-                .style("font-size", "11px")
+                .style("font-size", "18px")
                 .style("fill", "#333");
         }
     }, [data]);
 
     return (
         <div className="happy-gauge">
-            <svg ref={svgRef} className='w-full h-full'></svg>
+            <svg ref={svgRef} className='w-full h-full' viewBox='-10 -40 320 320' preserveAspectRatio="xMidYMid meet"></svg>
         </div>
     );
 }
