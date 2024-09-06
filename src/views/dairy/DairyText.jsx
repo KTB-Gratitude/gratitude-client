@@ -39,7 +39,7 @@ const DiaryText = ({ selectedTemplate }) => {
                 placeholder="내용을 입력하세요"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                backgroundImage={getTemplateBackground(selectedTemplate)}
+                $backgroundImage={getTemplateBackground(selectedTemplate)}
             />
             <SubmitButton onClick={handleSubmit}>작성</SubmitButton>
         </Container>
@@ -91,9 +91,9 @@ const Textarea = styled.textarea`
     border: 2px solid #6c63ff;
     border-radius: 5px;
     margin-bottom: 20px;
-    background-image: ${(props) => props.backgroundImage};
-    background-size: ${(props) => props.backgroundImage.includes('parchment') ? 'cover' : 'contain'}; /* 양피지 이미지는 커버 처리 */
-    background-repeat: ${(props) => props.backgroundImage.includes('parchment') ? 'no-repeat' : 'repeat'}; /* 양피지는 반복하지 않음 */
+    background-image: ${(props) => props.$backgroundImage};
+    background-size: ${(props) => props.$backgroundImage.includes('parchment') ? 'cover' : 'contain'}; /* 양피지 이미지는 커버 처리 */
+    background-repeat: ${(props) => props.$backgroundImage.includes('parchment') ? 'no-repeat' : 'repeat'}; /* 양피지는 반복하지 않음 */
     background-position: center;
     resize: none;
     min-height: 300px;

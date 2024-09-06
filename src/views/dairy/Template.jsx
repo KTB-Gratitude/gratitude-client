@@ -38,7 +38,7 @@ const SvgGrid = styled.div`
 
 const SvgCard = styled.div`
   cursor: pointer;
-  border: ${(props) => (props.isSelected ? '3px solid #6c63ff' : '1px solid #ccc')};
+  border: ${(props) => (props.$isSelected ? '3px solid #6c63ff' : '1px solid #ccc')};
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
@@ -78,7 +78,7 @@ const Template = ({ onSelectTemplate }) => {
                     <SvgCard
                         key={svg.value}
                         onClick={() => handleTemplateChange(svg.value)}
-                        isSelected={selectedTemplate === svg.value}
+                        $isSelected={selectedTemplate === svg.value}
                     >
                         <img src={svg.src} alt={svg.label} />
                         <p>{svg.label}</p>
