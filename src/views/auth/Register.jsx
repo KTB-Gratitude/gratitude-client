@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { ArrowDownTrayIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Field, Label, Switch } from '@headlessui/react'
+import {useNavigate} from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [agreed, setAgreed] = useState(false);
   const [birthDate, setBirthDate] = useState('');
   const [loginId , setLoginId] = useState('');
@@ -51,6 +53,9 @@ export default function Register() {
 
             if (!res.ok) {
                 alert("통신 ok가 안났단다");
+            }else {
+              // 성공시 리다이렉트
+              navigate('/');
             }
             /* const result = await res.json();
             console.log('Response:', result, "통신 성공"); */

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { fetchPost } from '../FetchApi'; // POST 요청을 보내는 함수
+import { fetchPost } from '../FetchApi';
+import {useNavigate} from "react-router-dom"; // POST 요청을 보내는 함수
 
 const DiaryText = ({ selectedTemplate }) => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -21,6 +23,7 @@ const DiaryText = ({ selectedTemplate }) => {
         try {
             await fetchPost(diaryData, '/api/v1/diaries'); // fetchPost 사용
             alert('일기가 성공적으로 작성되었습니다!');
+            navigate('/library');
         } catch (error) {
             console.error('Error writing diary:', error);
             alert('일기 작성에 실패했습니다.');
