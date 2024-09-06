@@ -22,12 +22,13 @@ jobs:
 
       # 3. SSH로 서버에 접속하여 프로젝트 의존성 설치 및 빌드
       - name: Install dependencies and build on server
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}  # GitHub Secrets에 저장된 서버 IP 또는 도메인
           username: ${{ secrets.SERVER_USER }}  # GitHub Secrets에 저장된 사용자 (예: ubuntu)
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # GitHub Secrets에 저장된 SSH 비밀 키
           port: 22
+          timeout: 120s
           script: |
             cd /home/ubuntu/gratitude-client  # 프로젝트 경로로 이동
             git pull origin main  # 최신 코드를 서버에서 가져오기
