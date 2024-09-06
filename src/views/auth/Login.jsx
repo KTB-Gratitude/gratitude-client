@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = 'https://c67d-211-244-225-211.ngrok-free.app/api/v1/users/login'
+    const url = 'https://gratitude-emo.shop/api/v1/users/login';
     const formData = {
          loginId,   // email
          password   // text
@@ -24,28 +24,30 @@ export default function Login() {
     /* 
     통신 코드
     */
-    // try {
-    //     const res = await fetch(url, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type' : 'application/json'
-    //         },
-    //         body: JSON.stringify(formData)
-    //     });
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
 
-    //     if (!res.ok) {
-    //         alert("통신 ok가 안났단다");
-    //     }
-    //     const result = await res.json();
-    //     console.log('Response:', result, "통신 성공");
-    // } catch (error) {
-    //     console.log("catch에 걸렸단다");
-    // }
+        if (!res.ok) {
+            alert("통신 ok가 안났단다");
+        }
+        const result = await res.text();
+        console.log('Response:', result, "통신 성공");
+        localStorage.setItem('accessToken', result);
+        navigate('/library');
+    } catch (error) {
+        console.log("catch에 걸렸단다");
+    }
     console.log(formData);
   }
 
   return (
-    <div className="container">
+    <div className="container text-center">
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 w-96 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -56,9 +58,11 @@ export default function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email
-              </label>
+              <div className="flex items-center justify-between">
+                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                  Email
+                </label>
+              </div>
               <div className="mt-2">
                 <input
                   id="email"

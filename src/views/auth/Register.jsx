@@ -32,7 +32,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = 'https://c67d-211-244-225-211.ngrok-free.app/api/v1/users/sign-up'
+    const url = 'https://gratitude-emo.shop/api/v1/users/sign-up';
     const formData = {
          nickname,  // text
          birthDate, // date
@@ -52,8 +52,8 @@ export default function Register() {
             if (!res.ok) {
                 alert("통신 ok가 안났단다");
             }
-            const result = await res.json();
-            console.log('Response:', result, "통신 성공");
+            /* const result = await res.json();
+            console.log('Response:', result, "통신 성공"); */
         } catch (error) {
             console.log("catch에 걸렸단다");
         }
