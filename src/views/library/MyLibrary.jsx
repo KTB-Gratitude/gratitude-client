@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 // project import
 import Weather from "./Weather";
 import DairyCard from "./DairyCard";
-import mockdata from "./mockdata";
+import dairyList from "./mockdata";
 
 function MyLibrary () {    
-    const [data, setData] = useState(
-      JSON.parse(mockdata)
-    );
+    const [data, setData] = useState(dairyList);
 
-    console.log(mockdata);
+    // console.log(data.content[0]);
 
     /* useEffect(() => {
         const url = "";
@@ -21,17 +19,9 @@ function MyLibrary () {
             .catch(error => console.error('Fetching data failed:', error));  // 오류 처리
     }, []); */
 
-    const emotionState = {
-        R: data.rjmd.R.per >= 50 ? "A" : "P",
-        J: data.rjmd.J.per >= 50 ? "H" : "S",
-        M: data.rjmd.M.per >= 50 ? "D" : "L",
-        D: data.rjmd.D.per >= 50 ? "C" : "R"
-    }
-    console.log(emotionState);
-
     return (
         <>
-            <DairyCard data={data} emotionState={emotionState}/>
+            <DairyCard data={data.content[0]}/>
         </>
     )
 }

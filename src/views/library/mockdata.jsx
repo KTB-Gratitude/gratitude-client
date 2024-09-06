@@ -1,6 +1,6 @@
 // 일기 전체 조회
 
-const mockdata = 
+const dairyList = 
 {
     "content": [
       {
@@ -156,4 +156,4 @@ const mockdata =
     "empty": false
   }
 
-  export default mockdata;
+  export default dairyList;
