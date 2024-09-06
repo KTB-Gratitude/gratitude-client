@@ -5,6 +5,7 @@ function DairyCard({ data, emotionState }) {
     data.emotions.map((emotion, index) => (
         emotionList += `${emotion.name}(${emotion.per}) `
     ));
+    let RJMD = `${emotionState.R}${emotionState.J}${emotionState.M}${emotionState.D}`;
     
     return (
         <div
@@ -16,8 +17,8 @@ function DairyCard({ data, emotionState }) {
                 <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                     {data.title}
                 </h4>
-                <p>{emotionList}</p>
-                <p></p>
+                <p>감정: {emotionList}</p>
+                <p>RJMD: {RJMD}</p>
             </div>
             <div className="flex items-center justify-between p-6">
                 <p className="block font-sans text-base antialiased font-normal leading-relaxed text-inherit">
