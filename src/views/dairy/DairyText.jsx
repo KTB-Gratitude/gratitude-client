@@ -29,12 +29,11 @@ const DiaryText = ({ selectedTemplate }) => {
 
     return (
         <Container>
-            <input
+            <TitleInput
                 type="text"
                 placeholder="제목을 입력하세요"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                style={styles.input}
             />
             <Textarea
                 placeholder="내용을 입력하세요"
@@ -42,7 +41,7 @@ const DiaryText = ({ selectedTemplate }) => {
                 onChange={(e) => setContent(e.target.value)}
                 backgroundImage={getTemplateBackground(selectedTemplate)}
             />
-            <button onClick={handleSubmit} style={styles.button}>작성</button>
+            <SubmitButton onClick={handleSubmit}>작성</SubmitButton>
         </Container>
     );
 };
@@ -65,49 +64,49 @@ const getTemplateBackground = (template) => {
 
 const Container = styled.div`
     width: 100%;
-    max-width: 1000px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
+const TitleInput = styled.input`
+    width: 100%;
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #6c63ff;
+    border-radius: 5px;
+`;
+
 const Textarea = styled.textarea`
     width: 100%;
-    height: 650px;
+    flex: 1;
     font-size: 16px;
     padding: 10px;
     border: 2px solid #6c63ff;
     border-radius: 5px;
     margin-bottom: 20px;
     background-image: ${(props) => props.backgroundImage};
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-size: ${(props) => props.backgroundImage.includes('parchment') ? 'cover' : 'contain'}; /* 양피지 이미지는 커버 처리 */
+    background-repeat: ${(props) => props.backgroundImage.includes('parchment') ? 'no-repeat' : 'repeat'}; /* 양피지는 반복하지 않음 */
     background-position: center;
     resize: none;
+    min-height: 300px;
 `;
 
-const styles = {
-    input: {
-        width: '100%',
-        fontSize: '24px',
-        padding: '10px',
-        marginBottom: '20px',
-        border: '2px solid #6c63ff',
-        borderRadius: '5px',
-    },
-    button: {
-        fontSize: '18px',
-        padding: '10px 20px',
-        backgroundColor: '#6c63ff',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-    }
-};
+const SubmitButton = styled.button`
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #6c63ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+`;
 
 export default DiaryText;
