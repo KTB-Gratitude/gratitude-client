@@ -108,6 +108,18 @@ function MyLibrary () {
       navigate('/create');
     }
 
+    const clickLogout = async (e) => {
+      const endpoint = `/api/v1/users/logout`;
+      try {
+        const response = await fetchGet(endpoint); // id를 사용하여 요청
+        setDiaryData(response);
+        console.log("res: ", response);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch diary data:', error);
+      }
+    }
+
     return (
         <div className="grid grid-rows-[auto_1fr] min-h-screen p-10 gap-8">
           {/* 상단 날짜 및 타이틀 영역 */}
