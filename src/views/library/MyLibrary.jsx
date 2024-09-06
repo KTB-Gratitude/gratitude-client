@@ -57,6 +57,7 @@ function MyLibrary () {
     const [data, setData] = useState(null);
     const [diaryData, setDiaryData] =useState(null);
     const [rjmd, setRjmd] = useState(null);
+    const [selectedIdx, setSelectedIdx] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('accessToken');
@@ -96,6 +97,7 @@ function MyLibrary () {
     }, [rjmd]);
 
     const handlerClickDairy = async (index) => {   
+      setSelectedIdx(index);
       const diaryId = data.content[index].id;
       console.log("diaryId: ", diaryId);
       try {
@@ -134,7 +136,7 @@ function MyLibrary () {
                 </div>
             ) : (
               <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-8">
-                <HappyPer data={data.content[0].happiness} />
+                <HappyPer data={data.content[selectedIdx].happiness} />
                 <hr className="my-6 border-t-2 border-purple-500" />
                 {rjmd ? (
                   <>
