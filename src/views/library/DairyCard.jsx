@@ -6,7 +6,7 @@ function DairyCard({ data, onClick }) {
     let title = data.title;
     let weather = data.weather;
     let date = data.createdAt.split('T')[0];
-    let RJMD = `${data.rType.split(',')[0]}${data.jType.split(',')[0]}${data.mType.split(',')[0]}${data.dType.split(',')[0]}`;
+    let RJMD = `${data.rType.split('|')[0]}${data.jType.split('|')[0]}${data.mType.split('|')[0]}${data.dType.split('|')[0]}`;
 
     return (
         <div
