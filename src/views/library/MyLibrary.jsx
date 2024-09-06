@@ -88,12 +88,6 @@ function MyLibrary () {
         console.log("rjmd", rjmd);
       }
     }, [diaryData]); // diaryData가 변경될 때 실행
-    
-    useEffect(() => {
-      if (rjmd && rjmd.length > 0) {
-        console.log("type: ", rjmd[0].type[0]);
-      }
-    }, [rjmd]);
 
     const handlerClickDairy = async (index) => {   
       setSelectedIdx(index);

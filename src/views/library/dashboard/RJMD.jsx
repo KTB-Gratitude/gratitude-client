@@ -2,21 +2,20 @@ import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
 import { fetchGet, fetchPost } from '../../FetchApi';
 
-function RJMD({ title, data, type, description, id }) {
-    let [prevId, setPrevId] = useState(null);
+function RJMD({ title, data, type, description }) {
     const [error, setError] = useState(null);
     const svgRef = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
-        if (svgRef.current && id !== prevId) {
+        if (svgRef.current) {
             drawBarGraph(svgRef.current, data);
-            console.log('id: ', id, 'prev: ', prevId);
         }
     }, [data]);
 
     function drawBarGraph(svgElement, data) {
         const parentWidth = svgElement.parentElement.clientWidth;
+        console.log(parentWidth);
 
         d3.select(svgElement).selectAll("*").remove();
 
@@ -118,7 +117,7 @@ function RJMD({ title, data, type, description, id }) {
                 className="flex items-center cursor-pointer gap-x-2"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <div className="font-semibold text-center">{title}</div>
+                <div className="font-semibold text-sm text-center">{title}</div>
                 <div className="text-center">{type && type.length > 0 ? type[0] : 'N/A'}</div>
                 <div className="flex-grow">
                     <svg ref={svgRef}></svg>
@@ -126,7 +125,12 @@ function RJMD({ title, data, type, description, id }) {
                 <div className="text-center">{type && type.length > 0 ? type[1] : 'N/A'}</div>
             </div>
             {isExpanded && (
-                <div className="mt-2 p-2 bg-gray-100 rounded">
+                <div className="mt-2 p-2 w-96 bg-gray-100 rounded text-sm"
+                     style={{
+                        wordWrap: 'break-word',  // 텍스트가 너무 길 경우 자동 줄바꿈
+                        overflow: 'hidden',
+                     }}
+                >
                     {description}
                 </div>
             )}
