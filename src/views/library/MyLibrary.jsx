@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import Weather from "./Weather";
 import DairyCard from "./DairyCard";
 import dairyList from "./mockdata";
-import diaryData from "./mockdataP";
+import personalDairy from "./mockdataP";
 import HappyPer from "./dashboard/HappyPer";
 
 function MyLibrary () {
     const [data, setData] = useState(dairyList);
-    const [diaryData, setDiaryDate] = useState(diaryData);
+    const [diaryData, setDiaryDate] = useState(personalDairy);
     const [isLoading, setLoading] = useState(false);
     const navigation = useNavigate();
     const token = localStorage.getItem('token');
