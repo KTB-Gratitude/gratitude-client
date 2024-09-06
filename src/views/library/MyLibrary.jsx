@@ -124,10 +124,10 @@ function MyLibrary () {
           <div className="grid grid-cols-[1fr_2fr] gap-4 flex-grow">
             {/* 대쉬보드 */}
             {isLoading ? (
-                <div className="flex flex-col bg-white shadow-lg rounded-lg p-8 w-full max-w-md justify-center">
+                <div className="flex flex-col bg-white shadow-lg rounded-lg p-8 w-full justify-center">
                   <p className="font-bold text-center mb-4 text-gray-500">오늘의 명언</p>
                   <p className="text-xl text-center font-bold mb-4 text-gray-500">라고 할때 할걸</p>
-                  <p className="text-sm text-center text-gray-500">- 헤르만 헤세</p>
+                  <p className="text-sm text-center text-gray-500">- 익명</p>
                 </div>
             ) : (
               <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg gap-y-4">
@@ -168,7 +168,7 @@ function MyLibrary () {
                 <p>데이터를 불러오는 중입니다...</p> // 데이터가 없을 때 표시할 내용
               )}
                 <li onClick={clickCreateDiary}>
-                  <div className="relative flex flex-col h-60 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md cursor-pointer">
+                  <div className="relative flex flex-col h-60 w-44 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md cursor-pointer">
                       <div className="flex justify-center items-center h-full">
                           <p className="block font-sans text-base text-sm antialiased font-normal leading-relaxed text-inherit">
                               일기 작성

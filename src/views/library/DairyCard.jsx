@@ -15,7 +15,7 @@ function DairyCard({ data, onClick }) {
                 <div className="h-28 bg-blue-500">
                 </div>
             </div>
-            <div className="p-5 h-28">
+            <div className="p-5 h-28 w-44">
                 <h5 className="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 truncate">
                     {data.title}
                 </h5>
