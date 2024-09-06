@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 // eslint-disable-next-line react/prop-types
-function HappyPer({ data}) {
+function HappyPer({data}) {
     const svgRef = useRef(null);
     useEffect(() => {
         if (svgRef.current) {

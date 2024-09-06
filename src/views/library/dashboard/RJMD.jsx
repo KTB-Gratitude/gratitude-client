@@ -5,35 +5,17 @@ import { fetchGet, fetchPost } from '../../FetchApi';
 // project import
 
 
-function RJMD({ diaryId }) {
+function RJMD({ title, data, type, description }) {
     const [diaryData, setDiaryData] = useState(null);
     const token = localStorage.getItem('accessToken');
-    const endpoint = `/api/v1/diaries/${diaryId}`;
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [diary, setDiary] = useState(null);
 
+    console.log("type: ", type, " typelength: ", type.length);
 
-    const title = "J (기쁨)";
-    const data = [{value: 40, color: "#D9E0E8"}, {value: 60, color: "#fd7a9e"}];
-    const type = ['H', 'S'];
-    const description = "평온형은 휴식과 재충전의 중요성을 이해하며, 일상에서 여유를 찾아냅니다. 스트레스와 부담을 피하고, 평온한 환경에서 안정감을 찾아냅니다. 평온형은 일과 삶의 균형을 유지하며, 재충전의 시간을 통해 내면의 평온함을 유지하고 스트레스를 해소합니다. 이 유형은 여유로운 시간을 통해 자신의 감정과 생각을 정리하며, 안정된 상태에서 삶의 목표와 꿈을 추구합니다.";
     const svgRef = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
-
-    /* useEffect(() => {
-        // 서버에서 일기 데이터를 가져오는 함수
-        const fetchDiaryData = async () => {
-            try {
-                const response = await fetchGet(`/api/v1/diaries/${diaryId}`); // id를 사용하여 요청
-                setDiary(response);
-            } catch (error) {
-                console.error('Failed to fetch diary data:', error);
-            }
-        };
-
-        fetchDiaryData();
-    }, [diaryId]); // id가 변경될 때마다 다시 데이터 요청 */
 
     useEffect(() => {
         if (svgRef.current) {
@@ -139,11 +121,11 @@ function RJMD({ diaryId }) {
                 onClick={() => setIsExpanded(!isExpanded)}
             >
                 <div className="w-24 font-semibold">{title}</div>
-                <div className="w-8 text-center">{type[0]}</div>
+                <div className="w-8 text-center">{type && type.length > 0 ? type[0] : 'N/A'}</div>
                 <div className="flex-grow">
                     <svg ref={svgRef}></svg>
                 </div>
-                <div className="w-8 text-center">{type[1]}</div>
+                <div className="w-8 text-center">{type && type.length > 0 ? type[1] : 'N/A'}</div>
             </div>
             {isExpanded && (
                 <div className="mt-2 p-2 bg-gray-100 rounded">

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Weather from "./Weather";
 
 function DairyCard({ data }) {
-    console.log(data)
     // 날씨, 날짜, 타이틀,
     let title = data.title;
     let weather = data.weather;

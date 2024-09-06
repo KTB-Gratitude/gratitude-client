@@ -1,20 +1,64 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { fetchGet, fetchPost } from '../FetchApi';
 
 // project import
 import Weather from "./Weather";
 import DairyCard from "./DairyCard";
-import dairyList from "./mockdata";
-import personalDairy from "./mockdataP";
 import HappyPer from "./dashboard/HappyPer";
 import RJMD from "./dashboard/RJMD";
+
+function processDataFromBackend(diaryData) {
+  const colors = ["#02D19B", "#fd7a9e", "#33bce2", "#fd993e" ]
+
+  // rType, jType, mType, dType의 공통 처리 로직
+  const parseTypeData = (typeData) => {
+      const [type, value, description] = typeData.split(", ");
+      const colorR = value > 50 ? [colors[0], "#D9E0E8"] : ["#D9E0E8", colors[0]];
+      const colorJ = value > 50 ? [colors[1], "#D9E0E8"] : ["#D9E0E8", colors[1]];
+      const colorM = value > 50 ? [colors[2], "#D9E0E8"] : ["#D9E0E8", colors[2]];
+      const colorD = value > 50 ? [colors[3], "#D9E0E8"] : ["#D9E0E8", colors[3]];
+      
+      return { type, value: Number(value), description, colorR, colorJ, colorM, colorD };
+  };
+
+  let R = {
+    title: 'R(휴식)',
+    type: ['A', 'P'],
+    data: [{ value: parseTypeData(diaryData.rType).value, color: parseTypeData(diaryData.rType).colorR[0] }, { value: 100 - parseTypeData(diaryData.rType).value, color: parseTypeData(diaryData.rType).colorR[1] }],
+    description: parseTypeData(diaryData.rType).description,
+  };
+
+  let J = {
+    title: 'J(기쁨)',
+    type: ['H', 'S'],
+    data: [{ value: parseTypeData(diaryData.jType).value, color: parseTypeData(diaryData.jType).colorJ[0] }, { value: 100 - parseTypeData(diaryData.jType).value, color: parseTypeData(diaryData.jType).colorJ[1] }],
+    description: parseTypeData(diaryData.jType).description,    
+  };
+
+  let M = {
+    title: 'M(동기)',
+    type:  ['D', 'L'],
+    data: [{ value: parseTypeData(diaryData.mType).value, color: parseTypeData(diaryData.mType).colorM[0] }, { value: 100 - parseTypeData(diaryData.mType).value, color: parseTypeData(diaryData.mType).colorM[1] }],
+    description: parseTypeData(diaryData.mType).description,    
+  };
+
+  let D = {
+    title: 'D(대처)',
+    type: ['C', 'R'],
+    data: [{ value: parseTypeData(diaryData.dType).value, color: parseTypeData(diaryData.dType).colorD[0] }, { value: 100 - parseTypeData(diaryData.dType).value, color: parseTypeData(diaryData.dType).colorD[1] }],
+    description: parseTypeData(diaryData.dType).description,    
+  }
+
+  return [R, J, M, D];
+}
 
 function MyLibrary () {
     const [data, setData] = useState(null);
     const [diaryData, setDiaryData] =useState(null);
+    const [rjmd, setRjmd] = useState(null);
     const [isLoading, setLoading] = useState(true);
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     const token = localStorage.getItem('accessToken');
 
     useEffect(() => {
@@ -31,23 +75,42 @@ function MyLibrary () {
       };
 
       fetchData();
-  }, []); // id가 변경될 때마다 다시 데이터 요청
+    }, []); // id가 변경될 때마다 다시 데이터 요청
 
-    const handlerClickDairy = async (index) => {  
+    useEffect(() => {
+      console.log('diary data 변동 시 실행되는 useEffect');
+      if (diaryData) {
+        console.log("diaryData updated: ", diaryData);
+
+        const processedData = processDataFromBackend(diaryData);
+        console.log("processedData", processedData);
+        setRjmd(processedData);
+        console.log("rjmd", rjmd);
+      }
+    }, [diaryData]); // diaryData가 변경될 때 실행
+    
+    useEffect(() => {
+      if (rjmd && rjmd.length > 0) {
+        console.log("type: ", rjmd[0].type[0]);
+      }
+    }, [rjmd]);
+
+    const handlerClickDairy = async (index) => {   
       const diaryId = data.content[index].id;
       console.log("diaryId: ", diaryId);
       try {
         const response = await fetchGet(`/api/v1/diaries/${diaryId}`); // id를 사용하여 요청
         setDiaryData(response);
+        console.log("res: ", response);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch diary data:', error);
       }
-      console.log("oncllick 실행 시: ", diaryData);
     }
 
     const clickCreateDiary = (e) => {
       /* 일기 작성 페이지로 이동 */
+      navigate('/create');
     }
 
     return (
@@ -73,7 +136,16 @@ function MyLibrary () {
               <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-8">
                 <HappyPer data={data.content[0].happiness} />
                 <hr className="my-6 border-t-2 border-purple-500" />
-                <RJMD diaryId={data.content[0].id}/>
+                {rjmd ? (
+                  <>
+                    <RJMD title={rjmd[0].title} data={rjmd[0].data} type={rjmd[0].type} description={rjmd[0].description}/>
+                    <RJMD title={rjmd[1].title} data={rjmd[1].data} type={rjmd[1].type} description={rjmd[1].description}/>                  
+                    <RJMD title={rjmd[2].title} data={rjmd[2].data} type={rjmd[2].type} description={rjmd[2].description}/>                  
+                    <RJMD title={rjmd[3].title} data={rjmd[3].data} type={rjmd[3].type} description={rjmd[3].description}/>                  
+                  </>
+                ) : (
+                  <p>데이터를 불러오는 중입니다...</p>
+                )}
               </div>
             )}
 
@@ -97,7 +169,7 @@ function MyLibrary () {
               ) : (
                 <p>데이터를 불러오는 중입니다...</p> // 데이터가 없을 때 표시할 내용
               )}
-                <li>
+                <li onClick={clickCreateDiary}>
                   <div className="relative flex flex-col h-60 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md">
                       <div className="flex justify-center items-center h-full">
                           <p className="block font-sans text-base text-sm antialiased font-normal leading-relaxed text-inherit">
@@ -110,7 +182,7 @@ function MyLibrary () {
             </div>
           </div>
         </div>
-      );  
+    );  
 }
 
 export default MyLibrary;
