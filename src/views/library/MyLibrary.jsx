@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchGet, fetchPost } from '../FetchApi';
 
 // project import
 import Weather from "./Weather";
@@ -10,48 +11,45 @@ import HappyPer from "./dashboard/HappyPer";
 import RJMD from "./dashboard/RJMD";
 
 function MyLibrary () {
-    const [data, setData] = useState(dairyList);
-    const [diaryData, setDiaryDate] = useState(personalDairy);
-    const [isLoading, setLoading] = useState(false);
+    const [data, setData] = useState(null);
+    const [diaryData, setDiaryData] =useState(null);
+    const [isLoading, setLoading] = useState(true);
     const navigation = useNavigate();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
 
-    const handlerClickDairy = async (e, index) => {
-        e.preventDefault();
-        const dairyId = data.content[index].id;
-        const url = `/api/v1/diaries/${dairyId}`;
+    useEffect(() => {
+      const endpoint = "/api/v1/diaries";
 
+      const fetchData = async () => {
         try {
-            const res = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Bearer-Token' : token
-                },
-            });
-            if (!res.ok) {
-                alert("통신 ok가 안났단다");
-            }
-            setDiaryDate(res.json());
+            const response = await fetchGet(endpoint); // id를 사용하여 요청
+            setData(response);
+            console.log('fetch data: ', response);
         } catch (error) {
-            console.log("catch에 걸렸단다");
+            console.error('Failed to fetch diary data:', error);
         }
+      };
+
+      fetchData();
+  }, []); // id가 변경될 때마다 다시 데이터 요청
+
+    const handlerClickDairy = async (index) => {  
+      const diaryId = data.content[index].id;
+      console.log("diaryId: ", diaryId);
+      try {
+        const response = await fetchGet(`/api/v1/diaries/${diaryId}`); // id를 사용하여 요청
+        setDiaryData(response);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch diary data:', error);
+      }
+      console.log("oncllick 실행 시: ", diaryData);
     }
 
     const clickCreateDiary = (e) => {
       /* 일기 작성 페이지로 이동 */
     }
 
-    // console.log(data.content[0]);
-
-    /* useEffect(() => {
-        const url = "";
-
-        fetch(url)
-            .then(response => response.json())  // 응답을 JSON으로 파싱
-            .then(data => setData(data))        // 파싱된 데이터를 state에 저장
-            .catch(error => console.error('Fetching data failed:', error));  // 오류 처리
-    }, []); */
     return (
         <div className="grid grid-rows-[auto_1fr] min-h-screen p-10 gap-8">
           {/* 상단 날짜 및 타이틀 영역 */}
@@ -90,11 +88,15 @@ function MyLibrary () {
       
               {/* 일기 카드 목록 */}
               <ul className="grid grid-cols-4 gap-4 px-6">
-                {dairyList.content.map((item, index) => (
-                  <li key={index} className="list-none">
-                    <DairyCard data={item}/>
+              {data && data.content ? (
+                data.content.map((item, index) => (
+                  <li key={index} className="list-none" onClick={() => handlerClickDairy(index)}>
+                    <DairyCard data={item} />
                   </li>
-                ))}
+                ))
+              ) : (
+                <p>데이터를 불러오는 중입니다...</p> // 데이터가 없을 때 표시할 내용
+              )}
                 <li>
                   <div className="relative flex flex-col h-60 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md">
                       <div className="flex justify-center items-center h-full">

@@ -11,6 +11,8 @@ function RJMD({ diaryId }) {
     const endpoint = `/api/v1/diaries/${diaryId}`;
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(true);
+    const [diary, setDiary] = useState(null);
+
 
     const title = "J (기쁨)";
     const data = [{value: 40, color: "#D9E0E8"}, {value: 60, color: "#fd7a9e"}];
@@ -20,21 +22,18 @@ function RJMD({ diaryId }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     /* useEffect(() => {
-        const fetchData = async () => {
+        // 서버에서 일기 데이터를 가져오는 함수
+        const fetchDiaryData = async () => {
             try {
-              // GET 요청 보내기
-              const responseData = await fetchGet(endpoint);
-              setDiaryData(responseData); // 받아온 데이터를 상태에 저장
-            } catch (err) {
-              console.error('Error during GET request:', err);
-              setError(err.message); // 에러 메시지 설정
-            } finally {
-              setLoading(false); // 로딩 상태 해제
+                const response = await fetchGet(`/api/v1/diaries/${diaryId}`); // id를 사용하여 요청
+                setDiary(response);
+            } catch (error) {
+                console.error('Failed to fetch diary data:', error);
             }
         };
 
-        fetchData();
-    }, []); */
+        fetchDiaryData();
+    }, [diaryId]); // id가 변경될 때마다 다시 데이터 요청 */
 
     useEffect(() => {
         if (svgRef.current) {
