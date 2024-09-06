@@ -5,7 +5,6 @@ import { fetchGet, fetchPost } from '../../FetchApi';
 function RJMD({ title, data, type, description, id }) {
     let [prevId, setPrevId] = useState(null);
     const [error, setError] = useState(null);
-
     const svgRef = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -116,15 +115,15 @@ function RJMD({ title, data, type, description, id }) {
     return (
         <div className="mb-2">
             <div
-                className="flex items-center cursor-pointer"
+                className="flex items-center cursor-pointer gap-x-2"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <div className="w-20 font-semibold text-center">{title}</div>
-                <div className="w-8 text-center">{type && type.length > 0 ? type[0] : 'N/A'}</div>
+                <div className="font-semibold text-center">{title}</div>
+                <div className="text-center">{type && type.length > 0 ? type[0] : 'N/A'}</div>
                 <div className="flex-grow">
                     <svg ref={svgRef}></svg>
                 </div>
-                <div className="w-8 text-center">{type && type.length > 0 ? type[1] : 'N/A'}</div>
+                <div className="text-center">{type && type.length > 0 ? type[1] : 'N/A'}</div>
             </div>
             {isExpanded && (
                 <div className="mt-2 p-2 bg-gray-100 rounded">

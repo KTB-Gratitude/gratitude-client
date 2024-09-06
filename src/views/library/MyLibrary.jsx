@@ -121,7 +121,8 @@ function MyLibrary () {
             <div className="text-xl font-bold text-gray-500">2024년 9월</div>
             <div className="flex items-center">
               <button className="mr-2">&lt;&lt;</button> {/* 이전 달 버튼 */}
-              <button className="ml-2">&gt;&gt;</button> {/* 다음 달 버튼 */}
+              <button className="ml-2 mr-6">&gt;&gt;</button> {/* 다음 달 버튼 */}
+              <button className="ml-2">로그아웃</button> {/* 다음 달 버튼 */}
             </div>
           </div>
       
@@ -135,7 +136,7 @@ function MyLibrary () {
                   <p className="text-sm text-center text-gray-500">- 헤르만 헤세</p>
                 </div>
             ) : (
-              <div className="flex flex-col items-center justify-center bg-white shadow-lg w-96 rounded-lg p-8 gap-y-4">
+              <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg gap-y-4">
                 <div className="mb-10">
                   <HappyPer data={data.content[selectedIdx].happiness} />
                 </div>
