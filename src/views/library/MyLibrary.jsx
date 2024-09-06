@@ -109,7 +109,7 @@ function MyLibrary() {
     };
 
     return (
-        <div className="grid grid-rows-[auto_1fr] min-h-screen p-10 gap-8">
+        <div className="grid grid-rows-[minmax(1fr, auto)_1fr] min-h-screen p-10 gap-8">
             <div className="grid grid-cols-[1fr_auto] items-center">
                 <div className="text-xl font-bold text-gray-700">2024년 9월</div>
                 <div className="flex items-center">
