@@ -48,14 +48,19 @@ function Weather () {
         {isLoading ? (
             <p>Loading...</p>
         ) : weatherData && weatherData.weather ? (
-        <>
-            <p>날씨: {weatherData.weather[0].main}</p>
-            <p>온도: {Math.round((weatherData.main.temp - 273.15) * 10) / 10} °C</p>
-            <img
-                src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-                alt="weather icon"
-            />
-        </>
+        <div className="flex items-center space-x-2">
+            <div className="flex-shrink-0">
+                <img
+                    src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+                    alt="weather icon"
+                />
+            </div>
+
+            <div className="text-gray-700">
+                <div className="text-xl font-bold">{Math.round((weatherData.main.temp - 273.15) * 10) / 10} °C</div>
+                <div className="text-base">{weatherData.weather[0].main}</div>
+            </div>
+        </div>
         ) : (
             <p>날씨 정보를 불러올 수 없습니다.</p>
         )}

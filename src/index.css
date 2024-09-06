@@ -27,17 +27,13 @@ a:hover {
 }
 
 body {
+  width: 100%;
   margin: 0;
   display: flex;
   justify-content: center;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
