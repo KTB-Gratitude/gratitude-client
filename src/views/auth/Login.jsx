@@ -39,6 +39,7 @@ export default function Login() {
         const result = await res.text();
         console.log('Response:', result, "통신 성공");
         localStorage.setItem('accessToken', result);
+        navigate('/library');
     } catch (error) {
         console.log("catch에 걸렸단다");
     }
