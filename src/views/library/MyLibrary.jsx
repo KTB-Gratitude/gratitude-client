@@ -118,7 +118,7 @@ function MyLibrary () {
         <div className="grid grid-rows-[auto_1fr] min-h-screen p-10 gap-8">
           {/* 상단 날짜 및 타이틀 영역 */}
           <div className="grid grid-cols-[1fr_auto] items-center">
-            <div className="text-xl font-bold text-gray-700">2024년 9월</div>
+            <div className="text-xl font-bold text-gray-500">2024년 9월</div>
             <div className="flex items-center">
               <button className="mr-2">&lt;&lt;</button> {/* 이전 달 버튼 */}
               <button className="ml-2">&gt;&gt;</button> {/* 다음 달 버튼 */}
@@ -129,9 +129,10 @@ function MyLibrary () {
           <div className="grid grid-cols-[1fr_2fr] gap-4 flex-grow">
             {/* 대쉬보드 */}
             {isLoading ? (
-                <div className="flex flex-col bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-                  <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
-                  <p className="text-center">- 헤르만 헤세</p>
+                <div className="flex flex-col bg-white shadow-lg rounded-lg p-8 w-full max-w-md justify-center">
+                  <p className="font-bold text-center mb-4 text-gray-500">오늘의 명언</p>
+                  <p className="text-xl text-center font-bold mb-4 text-gray-500">라고 할때 할걸</p>
+                  <p className="text-sm text-center text-gray-500">- 헤르만 헤세</p>
                 </div>
             ) : (
               <div className="flex flex-col items-center justify-center bg-white shadow-lg w-96 rounded-lg p-8 gap-y-4">
@@ -153,10 +154,10 @@ function MyLibrary () {
 
       
             {/* 오른쪽 날씨 정보 및 일기 카드 */}
-            <div className="grid grid-rows-[auto_1fr] gap-4 shadow-lg pb-5">
+            <div className="grid grid-rows-[auto_1fr] gap-4 shadow-lg pb-5 rounded-lg bg-white">
               {/* 날씨 카드 */}
               <div
-                className="flex items-center bg-white py-2 px-4">
+                className="flex items-center pt-4 px-4">
                 <Weather />
               </div>
       
@@ -164,15 +165,15 @@ function MyLibrary () {
               <ul className="grid grid-cols-4 grid-rows-2 gap-4 px-6">
               {data && data.content ? (
                 data.content.map((item, index) => (
-                  <li key={index} className="list-none">
-                    <DairyCard data={item} onClick={() => handlerClickDairy(index)}/>
+                  <li key={index} className="list-none cursor-pointer">
+                    <DairyCard data={item} onClick={() => handlerClickDairy(index)} />
                   </li>
                 ))
               ) : (
                 <p>데이터를 불러오는 중입니다...</p> // 데이터가 없을 때 표시할 내용
               )}
                 <li onClick={clickCreateDiary}>
-                  <div className="relative flex flex-col h-60 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md">
+                  <div className="relative flex flex-col h-60 overflow-hidden bg-gray-200 rounded-xl bg-clip-border text-gray-700 shadow-md cursor-pointer">
                       <div className="flex justify-center items-center h-full">
                           <p className="block font-sans text-base text-sm antialiased font-normal leading-relaxed text-inherit">
                               일기 작성
