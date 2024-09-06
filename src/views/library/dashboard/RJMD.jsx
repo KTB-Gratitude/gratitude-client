@@ -1,12 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
+import { fetchGet, fetchPost } from '../../FetchApi';
 
 // project import
+
 
 function RJMD({ diaryId }) {
     const [diaryData, setDiaryData] = useState(null);
     const token = localStorage.getItem('accessToken');
     const endpoint = `/api/v1/diaries/${diaryId}`;
+    const [error, setError] = useState(null);
+    const [isLoading, setLoading] = useState(true);
+
     const title = "J (기쁨)";
     const data = [{value: 40, color: "#D9E0E8"}, {value: 60, color: "#fd7a9e"}];
     const type = ['H', 'S'];
@@ -15,51 +20,21 @@ function RJMD({ diaryId }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     /* useEffect(() => {
-        try {
-            let response = await fetch(`${API_BASE_URL}${endpoint}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-    
-            // 401 Unauthorized 응답 처리
-            if (response.status === 401) {
-                const responseData = await response.json();
-    
-                // 서버에서 ACCESS_TOKEN_EXPIRED Enum의 코드가 detailCode 4013일 경우에만 재발급 시도
-                if (responseData.detailCode === 4013) {
-                    const newToken = await refreshToken();
-    
-                    // 새로 발급받은 토큰으로 다시 요청
-                    response = await fetch(`${API_BASE_URL}${endpoint}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${newToken}`,
-                        },
-                        body: JSON.stringify(data),
-                    });
-                }
+        const fetchData = async () => {
+            try {
+              // GET 요청 보내기
+              const responseData = await fetchGet(endpoint);
+              setDiaryData(responseData); // 받아온 데이터를 상태에 저장
+            } catch (err) {
+              console.error('Error during GET request:', err);
+              setError(err.message); // 에러 메시지 설정
+            } finally {
+              setLoading(false); // 로딩 상태 해제
             }
-    
-            // 응답이 정상적인 경우
-            if (response.ok) {
-                const responseText = await response.text();
-                if (responseText) {
-                    return JSON.parse(responseText);
-                } else {
-                    return { message: 'Request successful with no content' };
-                }
-            }
-    
-            throw new Error('Failed to send data');
-        } catch (error) {
-            console.error('Error during POST request:', error);
-            throw error;
-        }
-    }) */
+        };
+
+        fetchData();
+    }, []); */
 
     useEffect(() => {
         if (svgRef.current) {

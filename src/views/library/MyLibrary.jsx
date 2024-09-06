@@ -91,7 +91,7 @@ function MyLibrary () {
               {/* 일기 카드 목록 */}
               <ul className="grid grid-cols-4 gap-4 px-6">
                 {dairyList.content.map((item, index) => (
-                  <li key={index} className="list-none" onClick={handlerClickDairy(index)}>
+                  <li key={index} className="list-none">
                     <DairyCard data={item}/>
                   </li>
                 ))}
