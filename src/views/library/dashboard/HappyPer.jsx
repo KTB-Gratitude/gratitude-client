@@ -10,8 +10,8 @@ function HappyPer({data}) {
             const svg = d3.select(svgRef.current);
             svg.selectAll("*").remove();
 
-            const width = 200;
-            const height = 200;
+            const width = svgRef.current.clientWidth;
+            const height = svgRef.current.clientHeight;
             const radius = Math.min(width, height) / 2;
             const g = svg.append("g").attr("transform", `translate(${width / 2},${height / 2})`);
 
@@ -56,7 +56,7 @@ function HappyPer({data}) {
 
     return (
         <div className="happy-gauge">
-            <svg ref={svgRef} width="200" height="200"></svg>
+            <svg ref={svgRef} className='w-full h-full'></svg>
         </div>
     );
 }

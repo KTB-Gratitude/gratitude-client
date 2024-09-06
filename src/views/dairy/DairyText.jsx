@@ -50,15 +50,15 @@ const DiaryText = ({ selectedTemplate }) => {
 const getTemplateBackground = (template) => {
     switch (template) {
         case 'UNDERLINE':
-            return 'url(/src/views/dairy/background/underLine.svg)';
+            return 'url(/public/background/underLine.svg)';
         case 'SMALL_GRID':
-            return 'url(/src/views/dairy/background/smallGrid.svg)';
+            return 'url(/public/background/smallGrid.svg)';
         case 'LARGE_GRID':
-            return 'url(/src/views/dairy/background/largeGrid.svg)';
+            return 'url(/public/background/largeGrid.svg)';
         case 'PARCHMENT':
-            return 'url(/src/views/dairy/background/parchment.svg)';
+            return 'url(/public/background/parchment.svg)';
         default:
-            return 'url(/src/views/dairy/background/default.svg)';
+            return 'url(/public/background/default.svg)';
     }
 };
 

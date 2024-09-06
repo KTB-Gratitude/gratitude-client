@@ -130,12 +130,13 @@ function MyLibrary () {
           <div className="grid grid-cols-[1fr_2fr] gap-4 flex-grow">
             {/* 대쉬보드 */}
             {isLoading ? (
-                <div className="bg-white shadow-lg rounded-lg p-8">
+                <div className="flex flex-col bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
                   <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
                   <p className="text-center">- 헤르만 헤세</p>
                 </div>
             ) : (
-              <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-8">
+              <div className="flex flex-col items-center justify-center bg-white shadow-lg w-full rounded-lg p-8">
+                
                 <HappyPer data={data.content[selectedIdx].happiness} />
                 <hr className="my-6 border-t-2 border-purple-500" />
                 {rjmd ? (

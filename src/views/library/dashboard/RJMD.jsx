@@ -2,9 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
 import { fetchGet, fetchPost } from '../../FetchApi';
 
-// project import
-
-
 function RJMD({ title, data, type, description }) {
     const [diaryData, setDiaryData] = useState(null);
     const token = localStorage.getItem('accessToken');
@@ -24,9 +21,10 @@ function RJMD({ title, data, type, description }) {
     }, [data]);
 
     function drawBarGraph(svgElement, data) {
+        
         d3.select(svgElement).selectAll("*").remove();
         const svg = d3.select(svgElement)
-            .attr("width", 220)
+            .attr("width", svgRef.current.clientWidth)
             .attr("height", 13);
 
         const width = +svg.attr("width");
@@ -120,7 +118,7 @@ function RJMD({ title, data, type, description }) {
                 className="flex items-center cursor-pointer"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <div className="w-24 font-semibold">{title}</div>
+                <div className="w-20 font-semibold text-center">{title}</div>
                 <div className="w-8 text-center">{type && type.length > 0 ? type[0] : 'N/A'}</div>
                 <div className="flex-grow">
                     <svg ref={svgRef}></svg>
