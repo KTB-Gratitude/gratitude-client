@@ -11,12 +11,12 @@ function DairyCard({ data }) {
 
     return (
         <div
-            className="relative flex flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            className="relative flex flex-col h-60 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
             <div className="relative m-0 overflow-hidden text-gray-700 bg-transparent rounded-none shadow-none bg-clip-border">
                 <div className="h-28 bg-blue-500">
                 </div>
             </div>
-            <div className="p-5">
+            <div className="p-5 h-28">
                 <h5 className="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 truncate">
                     {data.title}
                 </h5>
@@ -27,7 +27,7 @@ function DairyCard({ data }) {
                 {date}
                 </p>
             </div>
-        </div>         
+        </div>
     );
 }
 

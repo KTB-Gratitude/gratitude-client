@@ -1,9 +1,65 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
 
-function RJMD({title, data, type, description}) {
+// project import
+
+function RJMD({ diaryId }) {
+    const [diaryData, setDiaryData] = useState(null);
+    const token = localStorage.getItem('accessToken');
+    const endpoint = `/api/v1/diaries/${diaryId}`;
+    const title = "J (기쁨)";
+    const data = [{value: 40, color: "#D9E0E8"}, {value: 60, color: "#fd7a9e"}];
+    const type = ['H', 'S'];
+    const description = "평온형은 휴식과 재충전의 중요성을 이해하며, 일상에서 여유를 찾아냅니다. 스트레스와 부담을 피하고, 평온한 환경에서 안정감을 찾아냅니다. 평온형은 일과 삶의 균형을 유지하며, 재충전의 시간을 통해 내면의 평온함을 유지하고 스트레스를 해소합니다. 이 유형은 여유로운 시간을 통해 자신의 감정과 생각을 정리하며, 안정된 상태에서 삶의 목표와 꿈을 추구합니다.";
     const svgRef = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
+
+    /* useEffect(() => {
+        try {
+            let response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+    
+            // 401 Unauthorized 응답 처리
+            if (response.status === 401) {
+                const responseData = await response.json();
+    
+                // 서버에서 ACCESS_TOKEN_EXPIRED Enum의 코드가 detailCode 4013일 경우에만 재발급 시도
+                if (responseData.detailCode === 4013) {
+                    const newToken = await refreshToken();
+    
+                    // 새로 발급받은 토큰으로 다시 요청
+                    response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${newToken}`,
+                        },
+                        body: JSON.stringify(data),
+                    });
+                }
+            }
+    
+            // 응답이 정상적인 경우
+            if (response.ok) {
+                const responseText = await response.text();
+                if (responseText) {
+                    return JSON.parse(responseText);
+                } else {
+                    return { message: 'Request successful with no content' };
+                }
+            }
+    
+            throw new Error('Failed to send data');
+        } catch (error) {
+            console.error('Error during POST request:', error);
+            throw error;
+        }
+    }) */
 
     useEffect(() => {
         if (svgRef.current) {
