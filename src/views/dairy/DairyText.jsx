@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { sendDiaryRequest } from '../FetchApi'; // 서버에 요청을 보내는 함수
+import { fetchPost } from '../FetchApi'; // POST 요청을 보내는 함수
 
 const DiaryText = ({ selectedTemplate }) => {
     const [title, setTitle] = useState('');
@@ -19,7 +19,7 @@ const DiaryText = ({ selectedTemplate }) => {
         };
 
         try {
-            await sendDiaryRequest(diaryData);
+            await fetchPost(diaryData, '/api/v1/diaries'); // fetchPost 사용
             alert('일기가 성공적으로 작성되었습니다!');
         } catch (error) {
             console.error('Error writing diary:', error);
