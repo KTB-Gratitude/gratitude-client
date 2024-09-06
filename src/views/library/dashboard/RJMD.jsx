@@ -2,29 +2,25 @@ import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
 import { fetchGet, fetchPost } from '../../FetchApi';
 
-function RJMD({ title, data, type, description }) {
-    const [diaryData, setDiaryData] = useState(null);
-    const token = localStorage.getItem('accessToken');
+function RJMD({ title, data, type, description, id }) {
+    let [prevId, setPrevId] = useState(null);
     const [error, setError] = useState(null);
-    const [isLoading, setLoading] = useState(true);
-    const [diary, setDiary] = useState(null);
-
-    console.log("type: ", type, " typelength: ", type.length);
 
     const svgRef = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
-        if (svgRef.current && isLoading) {
+        if (svgRef.current && id !== prevId) {
             drawBarGraph(svgRef.current, data);
-            setLoading(false);
+            console.log('id: ', id, 'prev: ', prevId);
         }
     }, [data]);
 
     function drawBarGraph(svgElement, data) {
+        const parentWidth = svgElement.parentElement.clientWidth;
 
-        const parentWidth = svgElement.parentElement.clientWidth-40;
         d3.select(svgElement).selectAll("*").remove();
+
         const svg = d3.select(svgElement)
             .attr("width", parentWidth)
             .attr("height", 13);
@@ -113,7 +109,8 @@ function RJMD({ title, data, type, description }) {
             .attr("x", (d, i) => {
                 const currentOffset = i === 0 ? 0 : d3.sum(data.slice(0, i).map(d => xScale(d.value)));
                 return currentOffset + xScale(d.value) / 2;
-            });
+                });
+
     }
 
     return (

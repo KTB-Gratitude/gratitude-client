@@ -60,7 +60,6 @@ function MyLibrary () {
     const [selectedIdx, setSelectedIdx] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const token = localStorage.getItem('accessToken');
 
     useEffect(() => {
       const endpoint = "/api/v1/diaries";
