@@ -5,7 +5,6 @@ import * as d3 from 'd3';
 // eslint-disable-next-line react/prop-types
 function HappyPer({ data}) {
     const svgRef = useRef(null);
-    data = 75;
     useEffect(() => {
         if (svgRef.current) {
             const svg = d3.select(svgRef.current);

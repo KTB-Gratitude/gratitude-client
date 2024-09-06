@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 // project import
 import Weather from "./Weather";
 import DairyCard from "./DairyCard";
-
 import dairyList from "./mockdata";
 import HappyPer from "./dashboard/HappyPer";
+import RJMD from "./dashboard/RJMD";
 
 function MyLibrary () {    
     const [data, setData] = useState(dairyList);
@@ -46,10 +46,12 @@ function MyLibrary () {
                 <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
                 <p className="text-center">- 헤르만 헤세</p>
                 </div>
-            ) :
-                /* 감정상태 나타내기 */
-                <HappyPer />
-            }
+            ) : (
+              <>
+              <HappyPer />
+              <RJMD />
+              </>
+            )}
 
       
             {/* 오른쪽 날씨 정보 및 일기 카드 */}
@@ -64,7 +66,7 @@ function MyLibrary () {
               <ul className="grid grid-cols-4 gap-4 px-6">
                 {dairyList.content.map((item, index) => (
                   <li key={index} className="list-none">
-                    <DairyCard data={item} />
+                    <DairyCard data={item.happiness} />
                   </li>
                 ))}
               </ul>
