@@ -6,6 +6,7 @@ const svgList = [
     { src: '/src/views/dairy/background/default.svg', value: 'DEFAULT', label: '기본 템플릿' },
     { src: '/src/views/dairy/background/underLine.svg', value: 'UNDERLINE', label: '밑줄 템플릿' },
     { src: '/src/views/dairy/background/largeGrid.svg', value: 'LARGE_GRID', label: '큰 격자 템플릿' },
+    { src: '/src/views/dairy/background/smallGrid.svg', value: 'SMALL_GRID', label: '작은 격자 템플릿' },
     { src: '/src/views/dairy/background/parchment.svg', value: 'PARCHMENT', label: '양피지 템플릿' },
 ];
 

@@ -52,6 +52,8 @@ const getTemplateBackground = (template) => {
     switch (template) {
         case 'UNDERLINE':
             return 'url(/src/views/dairy/background/underLine.svg)';
+        case 'SMALL_GRID':
+            return 'url(/src/views/dairy/background/smallGrid.svg)';
         case 'LARGE_GRID':
             return 'url(/src/views/dairy/background/largeGrid.svg)';
         case 'PARCHMENT':
