@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 // 템플릿 SVG 목록
 const svgList = [
-    { src: '/public/background/default.svg', value: 'DEFAULT', label: '기본 템플릿' },
-    { src: '/public/background/underLine.svg', value: 'UNDERLINE', label: '밑줄 템플릿' },
-    { src: '/public/views/dairy/background/largeGrid.svg', value: 'LARGE_GRID', label: '큰 격자 템플릿' },
-    { src: '/public/views/dairy/background/smallGrid.svg', value: 'SMALL_GRID', label: '작은 격자 템플릿' },
-    { src: '/public/background/parchment.svg', value: 'PARCHMENT', label: '양피지 템플릿' },
+    { src: '/background/default.svg', value: 'DEFAULT', label: '기본 템플릿' },
+    { src: '/background/underLine.svg', value: 'UNDERLINE', label: '밑줄 템플릿' },
+    { src: '/background/largeGrid.svg', value: 'LARGE_GRID', label: '큰 격자 템플릿' },
+    { src: '/background/smallGrid.svg', value: 'SMALL_GRID', label: '작은 격자 템플릿' },
+    { src: '/background/parchment.svg', value: 'PARCHMENT', label: '양피지 템플릿' },
 ];
 
 // 스타일 정의
