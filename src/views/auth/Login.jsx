@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = 'https://c67d-211-244-225-211.ngrok-free.app/api/v1/users/login'
+    const url = 'https://gratitude-emo.shop/api/v1/users/login';
     const formData = {
          loginId,   // email
          password   // text
@@ -37,6 +37,7 @@ export default function Login() {
             alert("통신 ok가 안났단다");
         }
         const result = await res.json();
+        localStorage.setItem('accessToken', result.body);
         console.log('Response:', result, "통신 성공");
     } catch (error) {
         console.log("catch에 걸렸단다");

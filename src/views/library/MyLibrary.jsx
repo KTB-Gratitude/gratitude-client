@@ -4,17 +4,37 @@ import { useNavigate } from "react-router-dom";
 // project import
 import Weather from "./Weather";
 import DairyCard from "./DairyCard";
-
 import dairyList from "./mockdata";
+import diaryData from "./mockdataP";
 import HappyPer from "./dashboard/HappyPer";
 
-function MyLibrary () {    
+function MyLibrary () {
     const [data, setData] = useState(dairyList);
+    const [diaryData, setDiaryDate] = useState(diaryData);
     const [isLoading, setLoading] = useState(false);
     const navigation = useNavigate();
+    const token = localStorage.getItem('token');
 
-    const clickDairy = (e) => {
+    const handlerClickDairy = async (e, index) => {
         e.preventDefault();
+        const dairyId = data.content[index].id;
+        const url = `/api/v1/diaries/${dairyId}`;
+
+        try {
+            const res = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Bearer-Token' : token
+                },
+            });
+            if (!res.ok) {
+                alert("통신 ok가 안났단다");
+            }
+            setDiaryDate(res.json());
+        } catch (error) {
+            console.log("catch에 걸렸단다");
+        }
     }
 
     // console.log(data.content[0]);
@@ -43,12 +63,21 @@ function MyLibrary () {
             {/* 대쉬보드 */}
             {isLoading ? (
                 <div className="bg-white shadow-lg rounded-lg p-8">
-                <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
-                <p className="text-center">- 헤르만 헤세</p>
+                    <p className="text-xl font-bold text-center mb-4">오늘의 명언~</p>
+                    <p className="text-center">- 헤르만 헤세</p>
                 </div>
-            ) :
-                /* 감정상태 나타내기 */
-                <HappyPer />
+            ) : (
+                <div className="bg-white shadow-lg rounded-lg p-8">
+                    {/* 행복지수 자리 */}
+                    <HappyPer />
+                    <hr className="border-gray-300 my-6" />
+
+                    
+                </div>
+
+            )
+                
+                
             }
 
       
@@ -63,8 +92,8 @@ function MyLibrary () {
               {/* 일기 카드 목록 */}
               <ul className="grid grid-cols-4 gap-4 px-6">
                 {dairyList.content.map((item, index) => (
-                  <li key={index} className="list-none">
-                    <DairyCard data={item} />
+                  <li key={index} className="list-none" onClick={handlerClickDairy(index)}>
+                    <DairyCard data={item}/>
                   </li>
                 ))}
               </ul>
