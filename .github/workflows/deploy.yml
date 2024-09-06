@@ -14,14 +14,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Node.js 설치 (CI에서만 필요)
+      # 2. Node.js 설치 및 의존성 설치
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '16'  # Node.js 버전 설정
 
-      # 3. SSH로 서버에 접속하여 프로젝트 의존성 설치 및 빌드
-      - name: Install dependencies and build on server
+      # 3. 프로젝트 의존성 설치
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Vite 프로젝트 빌드
+      - name: Build Vite project
+        run: npm run build
+
+      # 5. SSH로 서버에 접속하여 빌드 파일 배포
+      - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}  # GitHub Secrets에 저장된 서버 IP 또는 도메인
@@ -34,7 +42,7 @@ jobs:
             npm install  # 의존성 설치
             npm run build  # 빌드 실행
 
-      # 4. 성공 시 디스코드 알림
+      # 6. 성공 시 디스코드 알림
       - name: Send success Discord notification
         if: success()
         run: |
@@ -43,7 +51,7 @@ jobs:
           -d "{\"content\": \"🚀 Client 배포가 성공적으로 완료되었습니다!\"}" \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
 
-      # 5. 실패 시 디스코드 알림
+      # 7. 실패 시 디스코드 알림
       - name: Send failure Discord notification
         if: failure()
         run: |
