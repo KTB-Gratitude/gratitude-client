@@ -14,9 +14,6 @@ const refreshToken = async () => {
     // 토큰 재발급 요청 로직
     const response = await fetch(`${API_BASE_URL}/api/v1/users/reissue`, {
         method: 'GET',
-        headers: {
-            Authorization: `Bearer ${getAuthToken()}`,
-        },
     });
 
     if (!response.ok) {
