@@ -13,11 +13,7 @@ const setAuthToken = (token) => {
 const refreshToken = async () => {
     // 토큰 재발급 요청 로직
     const response = await fetch(`${API_BASE_URL}/api/v1/users/reissue`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ refreshToken: getAuthToken() }),
+        method: 'GET',
     });
 
     if (!response.ok) {
