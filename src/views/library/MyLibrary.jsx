@@ -111,14 +111,13 @@ function MyLibrary () {
     const clickLogout = async (e) => {
       const endpoint = `/api/v1/users/logout`;
       try {
-        const response = await fetchGet(endpoint); // id를 사용하여 요청
-
+        const response = await fetchPost('', endpoint); // id를 사용하여 요청
         if (!response.ok) {
           alert("로그아웃 실패");
         }else {
             navigate("/");
+            localStorage.clear();
         }
-        localStorage.clear();
       } catch (error) {
         console.error('Failed to fetch diary data:', error);
       }

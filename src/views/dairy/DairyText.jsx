@@ -123,6 +123,7 @@ const TitleInput = styled.input`
     margin-bottom: 20px;
     border: 2px solid #6c63ff;
     border-radius: 5px;
+    color: #6e6e6e; /* 텍스트 색상 회색으로 설정 */
 `;
 
 const Textarea = styled.textarea`
@@ -139,6 +140,7 @@ const Textarea = styled.textarea`
     background-position: center;
     resize: none;
     min-height: 300px;
+    color: #6e6e6e; /* 텍스트 색상 회색으로 설정 */
 `;
 
 const SubmitButton = styled.button`
