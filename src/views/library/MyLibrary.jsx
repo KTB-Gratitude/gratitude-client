@@ -107,7 +107,9 @@ function MyLibrary() {
                 navigate("/");
                 localStorage.clear();
             } else {
-                alert("로그아웃 실패");
+                alert("로그아웃!");
+                navigate("/");
+                localStorage.clear();
             }
         } catch (error) {
             console.error('Failed to fetch diary data:', error);
