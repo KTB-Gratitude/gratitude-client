@@ -115,6 +115,8 @@ function MyLibrary () {
 
         if (!response.ok) {
           alert("로그아웃 실패");
+        }else {
+            navigate("/");
         }
         localStorage.clear();
       } catch (error) {
