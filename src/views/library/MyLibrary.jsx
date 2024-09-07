@@ -142,8 +142,8 @@ function MyLibrary() {
                 {isLoading ? (
                     <div className="flex flex-col bg-white shadow-lg rounded-lg p-8 w-full justify-center">
                         <p className="font-bold text-center mb-4 text-gray-500">오늘의 명언</p>
-                        <p className="text-xl text-center font-bold mb-4 text-gray-500">라고 할때 할걸</p>
-                        <p className="text-sm text-center text-gray-500">- 익명</p>
+                        <p className="text-xl text-center font-bold mb-4 text-gray-500">모든 성취의 시작점은 갈망이다.</p>
+                        <p className="text-sm text-center text-gray-500">- 나폴레온 힐</p>
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center bg-white shadow-lg rounded-lg gap-y-4">

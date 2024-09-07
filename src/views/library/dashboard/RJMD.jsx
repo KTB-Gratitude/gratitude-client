@@ -118,11 +118,11 @@ function RJMD({ title, data, type, description }) {
                 onClick={() => setIsExpanded(!isExpanded)}
             >
                 <div className="font-semibold text-sm text-center">{title}</div>
-                <div className="text-center">{type && type.length > 0 ? type[0] : 'N/A'}</div>
+                <div className="text-center text-gray-500">{type && type.length > 0 ? type[0] : 'N/A'}</div>
                 <div className="flex-grow">
                     <svg ref={svgRef}></svg>
                 </div>
-                <div className="text-center">{type && type.length > 0 ? type[1] : 'N/A'}</div>
+                <div className="text-center text-gray-500">{type && type.length > 0 ? type[1] : 'N/A'}</div>
             </div>
             {isExpanded && (
                 <div className="mt-2 p-2 w-96 bg-gray-100 rounded text-sm"
