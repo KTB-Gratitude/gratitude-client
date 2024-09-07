@@ -102,6 +102,7 @@ function MyLibrary() {
         const endpoint = `/api/v1/users/logout`;
         try {
             const response = await fetchPost(null, endpoint);
+            console.log("res: ", response)
             if (response.ok) {
                 navigate("/");
                 localStorage.clear();
