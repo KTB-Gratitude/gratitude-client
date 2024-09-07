@@ -7,6 +7,7 @@ const DiaryText = ({ selectedTemplate }) => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!title || !content) {
@@ -21,30 +22,40 @@ const DiaryText = ({ selectedTemplate }) => {
         };
 
         try {
+            setIsLoading(true);
             await fetchPost(diaryData, '/api/v1/diaries'); // fetchPost 사용
-            alert('일기가 성공적으로 작성되었습니다!');
             navigate('/library');
         } catch (error) {
             console.error('Error writing diary:', error);
             alert('일기 작성에 실패했습니다.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <Container>
-            <TitleInput
-                type="text"
-                placeholder="제목을 입력하세요"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-            <Textarea
-                placeholder="내용을 입력하세요"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                $backgroundImage={getTemplateBackground(selectedTemplate)}
-            />
-            <SubmitButton onClick={handleSubmit}>작성</SubmitButton>
+            {isLoading ? (
+                <LoadingOverlay>
+                    <LoadingSpinner />
+                    <p>감정을 분석중이에요!</p>
+                </LoadingOverlay>
+            ) : 
+            <>
+                <TitleInput
+                    type="text"
+                    placeholder="제목을 입력하세요"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+                <Textarea
+                    placeholder="내용을 입력하세요"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    $backgroundImage={getTemplateBackground(selectedTemplate)}
+                />
+                <SubmitButton onClick={handleSubmit}>작성</SubmitButton>
+            </>}
         </Container>
     );
 };
@@ -75,6 +86,34 @@ const Container = styled.div`
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const LoadingOverlay = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+    z-index: 9999;
+`;
+
+const LoadingSpinner = styled.div`
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #6c63ff; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 `;
 
 const TitleInput = styled.input`

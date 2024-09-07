@@ -34,8 +34,11 @@ export default function Login() {
         });
 
         if (!res.ok) {
-            alert("통신 ok가 안났단다");
+          alert("통신 안됨");
+        } else if (res.status === 400) {
+          alert("아이디와 비밀번호를 확인하세요.")
         }
+        
         const result = await res.text();
         console.log('Response:', result, "통신 성공");
         localStorage.setItem('accessToken', result);
