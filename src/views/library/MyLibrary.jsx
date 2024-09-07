@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchGet } from '../FetchApi';
+import {fetchGet, fetchPost} from '../FetchApi';
 
 // project import
 import Weather from "./Weather";
@@ -101,7 +101,7 @@ function MyLibrary() {
     const clickLogout = async () => {
         const endpoint = `/api/v1/users/logout`;
         try {
-            const response = await fetchGet(endpoint);
+            const response = await fetchPost(null, endpoint);
             if (response.ok) {
                 navigate("/");
                 localStorage.clear();
